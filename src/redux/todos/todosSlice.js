@@ -39,10 +39,7 @@ const todosSlice = createSlice({
         },
         clearCompleted: (state, action) => {
             state.items = state.items.filter(item => item.completed === false)
-        },
-        markAllCompleted: (state, action) => {
-            const deneme = state.items.map(item => item.completed = true)
-        }   
+        }, 
     },
     extraReducers(builder) {
         builder
@@ -59,7 +56,7 @@ const todosSlice = createSlice({
                 state.status.isLoading = true
             })
             .addCase(addTodoAsync.fulfilled, (state, action) => {
-                const { title, id } = action.payload
+                const { title } = action.payload
                 state.items.push({ userId: 1, id: nanoid(), title, completed: false })
                 state.status.isLoading = false
             })
@@ -82,6 +79,6 @@ const todosSlice = createSlice({
 
 export default todosSlice.reducer
 
-export const { changeActiveFilter, clearCompleted, markAllCompleted } = todosSlice.actions
+export const { changeActiveFilter, clearCompleted } = todosSlice.actions
 
 export const selectTodos = (state) => state.todos.items

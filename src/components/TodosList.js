@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectTodos, getTodosAsync, toggleTodoAsync, deleteTodoAsync, markAllCompleted } from '../redux/todos/todosSlice'
+import { selectTodos, getTodosAsync, toggleTodoAsync, deleteTodoAsync } from '../redux/todos/todosSlice'
 
 const TodosList = () => {
 
@@ -26,13 +26,9 @@ const TodosList = () => {
 		await dispatch(deleteTodoAsync(id))
 	}
 
-	const handleMarkAll = () => {
-		dispatch(markAllCompleted())
-	}
-
 	return (
 		<section className="main">
-			<input className="toggle-all" type="checkbox" onClick={handleMarkAll()} />
+			<button className="toggle-all" type="checkbox"  />
 			<label htmlFor="toggle-all" >
 				Mark all as complete
 			</label>
