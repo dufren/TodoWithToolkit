@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addTodoAsync } from '../redux/todos/todosSlice'
 
 
 const Header = () => {
 
 	const dispatch = useDispatch()
+	const addStatus = useSelector((store) => store.todos.addStatus)
 
 	const [title, setTitle] = useState("")
 
@@ -16,7 +17,11 @@ const Header = () => {
 		e.preventDefault();
 		await dispatch(addTodoAsync({ title }))
 		setTitle("")
+		if (addStatus === "failed") {
+			return window.alert("Error while trying to add new todo!")
+		}
 	}
+
 	return (
 		<header className="header">
 			<h1>todos</h1>

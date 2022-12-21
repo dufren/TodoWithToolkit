@@ -8,10 +8,15 @@ const TodosList = () => {
 
 	let items = useSelector(selectTodos)
 	const activeFilter = useSelector((store) => store.todos.activeFilter)
+	const getStatus = useSelector((store) => store.todos.getStatus)
 
 	useEffect(() => {
 		dispatch(getTodosAsync())
 	}, [dispatch])
+
+	if(getStatus === "failed"){
+		return <div className='error-msg'>error while trying to fetch todos!</div>
+	}
 
 	if (activeFilter !== "all") {
 		items = items.filter(todo => activeFilter === "active"

@@ -422,3 +422,8 @@ meta,
 [property="todo"] .view:focus-within button {
 	display: none !important;
 }
+
+.error-msg{
+	font-size: 20px;
+	padding: 20px 20px;
+}

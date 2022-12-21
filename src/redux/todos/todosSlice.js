@@ -28,10 +28,8 @@ const todosSlice = createSlice({
     initialState: {
         items: [],
         activeFilter: "all",
-        status: {
-            isLoading: false,
-            error: null
-        }
+        getStatus: "idle",
+        addStatus: "idle",
     },
     reducers: {
         changeActiveFilter: (state, action) => {
@@ -44,24 +42,25 @@ const todosSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(getTodosAsync.pending, (state, action) => {
-                state.status.isLoading = true
+                state.getStatus = "pending"
             })
             .addCase(getTodosAsync.fulfilled, (state, action) => {
                 state.items = action.payload
+                state.getStatus = "succeeded"
             })
             .addCase(getTodosAsync.rejected, (state, action) => {
-                state.status.error = "error"
+                state.getStatus = "failed"
             })
             .addCase(addTodoAsync.pending, (state, action) => {
-                state.status.isLoading = true
+                state.addStatus = "pending"
             })
             .addCase(addTodoAsync.fulfilled, (state, action) => {
                 const { title } = action.payload
                 state.items.push({ userId: 1, id: nanoid(), title, completed: false })
-                state.status.isLoading = false
+                state.addStatus = "succeeded"
             })
             .addCase(addTodoAsync.rejected, (state, action) => {
-                state.status.error = "error"
+                state.addStatus = "failed"
             })
             .addCase(toggleTodoAsync.fulfilled, (state, action) => {
                 const { id } = action.payload
